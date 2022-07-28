@@ -1,3 +1,10 @@
+/* 设计演讲管理类
+功能描述
+（1）提供菜单界面与用户交互
+（2）对演讲比赛流程进行控制
+（3）与文件进行读写交互
+*/
+
 #pragma once
 #include <iostream>
 #include <vector>
@@ -5,28 +12,15 @@
 #include "Speaker.h"
 using namespace std;
 
-// 设计演讲管理类
 class CSpeechManager
 {
-public:
-	//比赛选手 容器  12人
-	vector<int>vPlayer;
-	//第一轮晋级容器  6人
-	vector<int>vRound1;
-	//胜利前三名容器  3人
-	vector<int>vVictory;
-	//存放编号 以及对应的 具体选手 容器
-	map<int, CSpeaker> m_Speaker;
-
-	int m_Index;
-
-
 public:
 	CSpeechManager();
 	~CSpeechManager();
 
 	// 展示菜单
 	void showMenu();
+
 	// 退出系统
 	void exitSystem();
 
@@ -45,11 +39,26 @@ public:
 	// 比赛
 	void speechContest();
 
+	// 显示每一轮的比赛分数
+	void showScore();
 
+	// 保存分数
+	void saveRecord();
 
+	// 读取记录分数
+	void loadRecord();
 
+	// 清空记录
+	void clearRecord();
 
+public:
+	vector<int> vRound1;    //比赛选手    12人   这3个vector存放的都是编号
+	vector<int> vRound2;    //第一轮晋级  6人   
+	vector<int> vVictory;   //胜利前三名  3人	
+	map<int, CSpeaker> m_speaker; //存放编号 以及 对应的具体选手 
 
+	int m_Index;  //记录比赛轮数
 
-
+	bool fileIsEmpty;  //判断文件是否为空的标志
+	map<int, vector<string>> m_record; //记录往届获胜分数的容器
 };
